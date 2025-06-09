@@ -1,12 +1,329 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hotel Monarch Prague - Luxusní ubytování v centru Prahy</title>
+    <link rel="stylesheet" href="css\style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    
+    <!-- Navigace -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="img/logo.png" alt="Hotel Monarch Prague" class="logo">
+                <span class="logo-text">Hotel Monarch Prague</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#hero" class="nav-link">Domů</a>
+                <a href="#rooms" class="nav-link">Pokoje</a>
+                <a href="#reservation" class="nav-link">Rezervace</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#reviews" class="nav-link">Recenze</a>
+                <a href="#contact" class="nav-link">Kontakt</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero sekce s video pozadím -->
+    <section id="hero" class="hero">
+        <div class="hero-image">
+            <img src="img/uvodni.png" alt="Hotel Monarch Prague">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Vítejte v Hotelu Monarch Prague</h1>
+            <p class="hero-subtitle">Luxusní ubytování s výhledem na Pražský hrad</p>
+            <button class="hero-btn" id="heroBtn">Naše nabídka</button>
+        </div>
+    </section>
+
+    <!-- Karusel pokojů -->
+    <section id="rooms" class="rooms-section">
+        <div class="container">
+            <h2 class="section-title">Naše pokoje</h2>
+            <div class="rooms-carousel">
+                <button class="carousel-btn prev" id="roomsPrev">‹</button>
+                <div class="rooms-container">
+                    <div class="room-card active" data-room="standard">
+                        <div class="room-image">
+                            <img src="img\standrat_pokoj.png" alt="Standard Room">
+                        </div>
+                        <div class="room-info">
+                            <h3>Standard Room</h3>
+                            <p class="room-price">2.000 Kč / noc</p>
+                            <p class="room-description">Komfortní pokoj s moderním vybavením a výhledem na město.</p>
+                            <button class="room-details-btn" data-room="standard">Zobrazit detail</button>
+                        </div>
+                    </div>
+                    <div class="room-card" data-room="luxury">
+                        <div class="room-image">
+                            <img src="img\luxury_pokoj.png" alt="Luxury Suite">
+                            <div class="special-offer">20% sleva tento měsíc!</div>
+                        </div>
+                        <div class="room-info">
+                            <h3>Luxury Suite</h3>
+                            <p class="room-price">4.500 Kč / noc</p>
+                            <p class="room-description">Prostorný apartmán s odděleným obývacím pokojem a balkonem.</p>
+                            <button class="room-details-btn" data-room="luxury">Zobrazit detail</button>
+                        </div>
+                    </div>
+                    <div class="room-card" data-room="penthouse">
+                        <div class="room-image">
+                            <img src="img\exlusive_pokoj.png" alt="Exclusive Penthouse">
+                        </div>
+                        <div class="room-info">
+                            <h3>Exclusive Penthouse</h3>
+                            <p class="room-price">8.000 Kč / noc</p>
+                            <p class="room-description">Luxusní penthouse s panoramatickým výhledem na Prahu.</p>
+                            <button class="room-details-btn" data-room="penthouse">Zobrazit detail</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next" id="roomsNext">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modální okno pro detail pokoje -->
+    <div id="room-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-room-detail">
+                <h2 id="modal-room-title"></h2>
+                <div class="room-gallery">
+                    <div class="gallery-container">
+                        <img id="gallery-main-image" src="" alt="">
+                        <button class="gallery-btn prev" id="galleryPrev">‹</button>
+                        <button class="gallery-btn next" id="galleryNext">›</button>
+                    </div>
+                    <div class="gallery-indicators" id="gallery-indicators"></div>
+                </div>
+                <div class="room-detail-info">
+                    <p id="modal-room-price"></p>
+                    <p id="modal-room-description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rezervační formulář -->
+    <section id="reservation" class="reservation-section">
+        <div class="container">
+            <h2 class="section-title">Rezervace</h2>
+            <form id="reservation-form" class="reservation-form" action="php/reservation.php" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Jméno *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Příjmení *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Počet osob</label>
+                        <input type="number" id="guests" name="guests" min="1" max="6" value="2">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="checkin">Datum příjezdu</label>
+                        <input type="date" id="checkin" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">Datum odjezdu</label>
+                        <input type="date" id="checkout" name="checkout" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="roomType">Typ pokoje</label>
+                        <select id="roomType" name="roomType">
+                            <option value="standard">Standard Room</option>
+                            <option value="luxury">Luxury Suite</option>
+                            <option value="penthouse">Exclusive Penthouse</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="price-calculation">
+                    <div class="price-display">
+                        <span>Celková cena: </span>
+                        <span id="total-price">0 Kč</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Odeslat rezervaci</button>
+            </form>
+            <div id="form-message" class="form-message"></div>
+        </div>
+    </section>
+
+    <!-- FAQ sekce -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Často kladené otázky</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Jaké jsou možnosti parkování?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Hotel disponuje vlastním podzemním parkingem s 50 místy. Parkování je zpoplatněno 500 Kč za den. Doporučujeme rezervaci parkovacího místa předem.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Je možné zrušit rezervaci zdarma?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ano, rezervaci lze zrušit zdarma až do 24 hodin před plánovaným příjezdem. V případě pozdějšího zrušení účtujeme poplatek ve výši jedné noci.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Máte restauraci v hotelu?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ano, náš hotel má prémiovou restauraci s výhledem na Pražský hrad. Podáváme mezinárodní i českou kuchyni. Restaurace je otevřena denně od 7:00 do 23:00.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Je hotel vhodný pro domácí mazlíčky?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ano, uvítáme vaše domácí mazlíčky. Za pobyt psa nebo kočky účtujeme poplatek 300 Kč za noc. Prosíme o informaci o mazlíčkovi při rezervaci.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recenze -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">Recenze našich hostů</h2>
+            <div class="reviews-container">
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"Naprosto úžasný hotel s perfektní polohou. Výhled na hrad je kouzelný, zejména večer. Personál byl velmi vstřícný a profesionální."</p>
+                    <div class="review-author">
+                        <strong>Marie Nováková</strong>
+                        <span>Praha</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"Luxusní pokoj, skvělá snídaně a fantastická poloha. Rozhodně se vrátíme! Hotel splnil všechna naše očekávání."</p>
+                    <div class="review-author">
+                        <strong>Petr Svoboda</strong>
+                        <span>Brno</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"Penthouse byl naprosto úžasný! Výhled na celou Prahu a luxusní vybavení. Dokonalý romantický víkend."</p>
+                    <div class="review-author">
+                        <strong>Anna Krásná</strong>
+                        <span>Ostrava</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"Vynikající servis a krásné pokoje. Restaurace v hotelu nabízí skvělé jídlo. Určitě doporučuji!"</p>
+                    <div class="review-author">
+                        <strong>Jan Dvořák</strong>
+                        <span>Plzeň</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Hotel Monarch Prague</h3>
+                    <p>Luxusní ubytování v srdci Prahy s výhledem na Pražský hrad.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontakt</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Hradčanské nám. 1, 118 00 Praha 1</p>
+                        <p><i class="fas fa-phone"></i> +420 234 567 890</p>
+                        <p><i class="fas fa-envelope"></i> info@hotelmonarch.cz</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Naše poloha</h3>
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.4328842697!2d14.3962!3d50.0902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b951e890e4a8f%3A0x2b4df4b4b4b4b4b4!2sHradčanské%20nám.%201%2C%20118%2000%20Praha%201!5e0!3m2!1scs!2scz!4v1234567890" 
+                            width="100%" 
+                            height="200" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hotel Monarch Prague. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript\script.js"></script>
 </body>
 </html>
